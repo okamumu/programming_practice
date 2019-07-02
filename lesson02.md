@@ -156,7 +156,7 @@ Example 4 の文字列の配列で最大の文字数の文字列とその長さ�
 最大の文字列は university でその長さは 10 です
 ```
 
-<!-- 解答例
+### 解答例
 ```c
 int main() {
     int i, j;
@@ -188,4 +188,138 @@ int main() {
     printf("最大の文字列は %s でその長さは %d です\n", s[max_i], max_len);
 }
 ```
--->
+
+### 解説
+- 次の段階を追って作る．
+    - 各文字列の文字数を数える
+    - 最大値をみつける
+    - 最大値をとる文字列をみつける
+
+
+#### 文字数を数える
+```c
+#include <stdio.h>
+
+int main() {
+    int i, k;
+    int len[6]; // 文字列の長さを格納する配列
+    char s[6][21] = { // 最大20文字の文字列を6個格納する
+        "We",
+        "are",
+        "students",
+        "of",
+        "Hiroshima",
+        "university"
+    };
+
+    for (i=0; i<6; i++) {
+        // 以下で長さを変数kでカウント
+        k = 0;
+        while (s[i][k] != '\0') {
+            k++;
+        }
+        len[i] = k; // 配列 len[i] に長さを格納
+    }
+}
+```
+
+#### 最大文字列数をみつける
+```c
+#include <stdio.h>
+
+int main() {
+    int i, k;
+    int len[6]; // 文字列の長さを格納する配列
+    int maxlen; // 最大の文字列数を格納する配列
+    char s[6][21] = { // 最大20文字の文字列を6個格納する
+        "We",
+        "are",
+        "students",
+        "of",
+        "Hiroshima",
+        "university"
+    };
+
+    maxlen = 0; // 暫定的に最大値0としておく
+    for (i=0; i<6; i++) {
+        k = 0;
+        while (s[i][k] != '\0') {
+            k++;
+        }
+        len[i] = k;
+        // 最大値の更新
+        if (len[i] > maxlen) {
+            maxlen = len[i];
+        }
+    }
+}
+```
+
+#### 最大文字列数になる文字列（何番目の文字列か）をみつける
+```c
+#include <stdio.h>
+
+int main() {
+    int i, k;
+    int len[6]; // 文字列の長さを格納する配列
+    int maxlen; // 最大の文字列数を格納する配列
+    int maxi; // 最大の文字列数となった文字列の番号を格納する配列
+    char s[6][21] = { // 最大20文字の文字列を6個格納する
+        "We",
+        "are",
+        "students",
+        "of",
+        "Hiroshima",
+        "university"
+    };
+
+    maxlen = 0; // 暫定的に最大値0としておく
+    maxi = 0; // 暫定的に0番（一番最初の文字としておく）
+    for (i=0; i<6; i++) {
+        k = 0;
+        while (s[i][k] != '\0') {
+            k++;
+        }
+        len[i] = k;
+        // 最大値の更新
+        if (len[i] > maxlen) {
+            maxi = i;
+            maxlen = len[i];
+        }
+    }
+}
+```
+
+#### 不要な変数の削除と最後の表示を加える
+```c
+#include <stdio.h>
+
+int main() {
+    int i, k;
+    int maxlen; // 最大の文字列数を格納する配列
+    int maxi; // 最大の文字列数となった文字列の番号を格納する配列
+    char s[6][21] = { // 最大20文字の文字列を6個格納する
+        "We",
+        "are",
+        "students",
+        "of",
+        "Hiroshima",
+        "university"
+    };
+
+    maxlen = 0; // 暫定的に最大値0としておく
+    maxi = 0; // 暫定的に0番（一番最初の文字としておく）
+    for (i=0; i<6; i++) {
+        k = 0;
+        while (s[i][k] != '\0') {
+            k++;
+        }
+        if (k > maxlen) {
+            maxi = i;
+            maxlen = k;
+        }
+    }
+
+    // 表示．．．
+}
+```
